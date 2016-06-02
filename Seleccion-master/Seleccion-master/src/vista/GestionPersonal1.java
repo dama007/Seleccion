@@ -7,11 +7,14 @@ package vista;
 
 import java.util.Collections;
 import javax.swing.JOptionPane;
+import modelo.Entrenador1;
 import modelo.Jugador1;
 import modelo.ListaPersonas1;
 import modelo.Persona1;
-import static seleccion.SeleccionDams.todosEntrenadores;
-import static seleccion.SeleccionDams.todosJugadores;
+import static seleccion.FootBall.ficheroEntrenadores;
+import static seleccion.FootBall.ficheroJugadores;
+import static seleccion.FootBall.todosEntrenadores;
+import static seleccion.FootBall.todosJugadores;
 
 /**
  *
@@ -19,8 +22,7 @@ import static seleccion.SeleccionDams.todosJugadores;
  */
 public class GestionPersonal1 extends javax.swing.JInternalFrame {
     
-    private ListaPersonas1 todos;
-    
+    private ListaPersonas1 todos;    
     private Persona1 personaSeleccionada;
 
     public Persona1 getPersonaSeleccionada() {
@@ -51,7 +53,7 @@ public class GestionPersonal1 extends javax.swing.JInternalFrame {
             todos.altaPersona(j);
             
         }
-        for (Entrenador e : todosEntrenadores.getLista()) {
+        for (Entrenador1 e : todosEntrenadores.getLista()) {
             todos.altaPersona(e);
         }
         Collections.sort(todos.getLista());
@@ -156,14 +158,14 @@ public class GestionPersonal1 extends javax.swing.JInternalFrame {
         } else {
             if (personaSeleccionada.getClass() == Jugador1.class) {
                 Jugador1 j = (Jugador1) personaSeleccionada;
-                DatosJugador dj = new DatosJugador(null, true, j, "Modificar");
+                DatosJugador1 dj = new DatosJugador1(null, true, j, "Modificar");
                 dj.setLocationRelativeTo(null);
                 dj.setVisible(true);
             } else {
-                Entrenador e = (Entrenador) personaSeleccionada;
-                DatosEntrenador de = new DatosEntrenador(null, true, e, "Modificar");
+                Entrenador1 e = (Entrenador1) personaSeleccionada;
+                DatosEntrenador1 de = new DatosEntrenador1(null, true, e, "Modificar");
                 de.setLocationRelativeTo(null);
-                dj.setVisible;
+                de.setVisible(true);
             }
            
         }
@@ -177,9 +179,11 @@ public class GestionPersonal1 extends javax.swing.JInternalFrame {
             if (respuesta == JOptionPane.YES_OPTION) {
                 todos.eliminarPersona(personaSeleccionada);
                 if (personaSeleccionada.getClass() == Entrenador1.class) {
-                    todosEntrenadores.bajaEntrenador(Entrenador.class) {
-                    
-                }
+                    todosEntrenadores.bajaEntrenador((Entrenador1) personaSeleccionada);
+                    ficheroEntrenadores.grabar(todosEntrenadores);   
+                } else {
+                    todosJugadores.bajaJugador((Jugador1) personaSeleccionada);
+                    ficheroJugadores.grabar(todosJugadores);
                 }
             }
         }

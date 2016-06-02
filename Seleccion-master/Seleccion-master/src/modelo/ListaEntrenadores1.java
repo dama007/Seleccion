@@ -28,13 +28,15 @@ public class ListaEntrenadores1 implements Serializable {
         lista.add(e);
     }
     
+     public void bajaEntrenador(Entrenador1 e) {
+        lista.remove(e);
+    }
+    
     public boolean existeEntrenador(Entrenador1 e) {
         return lista.contains(e);
     }
     
-    public void borrarEntrenador(Entrenador1 e) {
-        lista.remove(e);
-    }
+   
     
     public ListaEntrenadores1 copia() {
         ListaEntrenadores1 copia = new ListaEntrenadores1();

@@ -6,8 +6,8 @@
 package vista;
 
 import modelo.ListaJugadores1;
-import static seleccion.SeleccionDams.todosEquipos;
-import static seleccion.SeleccionDams.todosJugadores;
+import static seleccion.FootBall.todosEquipos;
+import static seleccion.FootBall.todosJugadores;
 
 /**
  *

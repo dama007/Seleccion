@@ -4,6 +4,8 @@ package vista;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.Entrenador1;
+import static seleccion.FootBall.ficheroEntrenadores;
+import static seleccion.FootBall.todosEntrenadores;
 import utilidades.DatosComunes;
 
 /**
@@ -14,7 +16,7 @@ public class DatosEntrenador1 extends javax.swing.JDialog {
     
     private Entrenador1 entrenador;   
     private ArrayList<String> paises;
-    private String modo;
+    
 
     public ArrayList<String> getPaises() {
         return paises;
@@ -33,7 +35,7 @@ public class DatosEntrenador1 extends javax.swing.JDialog {
         this.entrenador = entrenador;
     }
 
-
+    private String modo;
     /**
      * Creates new form DatosEntrenador
      */
@@ -61,7 +63,7 @@ public class DatosEntrenador1 extends javax.swing.JDialog {
         jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
@@ -94,7 +96,7 @@ public class DatosEntrenador1 extends javax.swing.JDialog {
             }
         });
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${entrenador.numLicencia}"), jTextField3, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${entrenador.numLicencia}"), jTextField2, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         jLabel5.setText("Experiencia");
@@ -125,7 +127,7 @@ public class DatosEntrenador1 extends javax.swing.JDialog {
                         .addGap(65, 65, 65)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(61, 61, 61)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -155,7 +157,7 @@ public class DatosEntrenador1 extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
@@ -171,11 +173,24 @@ public class DatosEntrenador1 extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean of = comprobarCampos();
-        String msg = "",
+        boolean ok = comprobarCampos();
+        String msg = "";
                 if (ok) {
                     if (modo.equals("Alta")) {
+                        if (todosEntrenadores.existeEntrenador(entrenador)) {
                         JOptionPane.showMessageDialog(this, "Ya existe un entrenador con ese nombre");
+                        ok = false;
+                    } else {
+                            msg = "Entrenador dado de alta";
+                            todosEntrenadores.altaEntrenador(entrenador);
+                        }
+                } else {
+                        msg = "Entrenador modificado";
+                    }
+                    if (ok) {
+                        ficheroEntrenadores.grabar(todosEntrenadores);
+                        JOptionPane.showMessageDialog(this, msg);
+                        dispose();
                     }
                 }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -186,7 +201,20 @@ public class DatosEntrenador1 extends javax.swing.JDialog {
 
     
     private boolean comprobarCampos() {
-        if (jTextField1.getText().isEmpty() || jTextField2.getT)
+        if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se puede dejar campos en blanco");
+            return false;
+        }
+        if (jComboBox1.getSelectedIndex() == 0
+                || entrenador.getNacionalidad().equals("")) {
+            JOptionPane.showMessageDialog(this, "Debes indicar un país");
+            return false;
+        }
+        if (jXDatePicker1.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Debes indicar una fecha de nacimiento");
+            return false;
+        }
+        return true;
     }
    
 
@@ -201,7 +229,7 @@ public class DatosEntrenador1 extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField2;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables

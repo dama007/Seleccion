@@ -3,6 +3,7 @@ package modelo;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import java.util.ArrayList;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
@@ -11,7 +12,7 @@ import org.jdesktop.observablecollections.ObservableList;
  *
  * @author usu21
  */
-public class ListaJugadores1 {
+public class ListaJugadores1 implements Serializable {
     
     private ObservableList<Jugador1> lista;
     
@@ -22,6 +23,10 @@ public class ListaJugadores1 {
     
     public void altaJugador(Jugador1 j) {
         lista.add(j);
+    }
+    
+    public void bajaJugador(Jugador1 j) {
+        lista.remove(j);
     }
     
     public boolean existeJugador(Jugador1 j) {
@@ -54,6 +59,16 @@ public class ListaJugadores1 {
             copia.altaJugador(j);
         }
         return copia;
+    }
+    
+    public ListaJugadores1 judadoresPorNacionalidad(String nacionalidad) {
+        ListaJugadores1 result = new ListaJugadores1();
+        for (Jugador1 j : lista) {
+            if (j.getNacionalidad().equals(nacionalidad)) {
+                result.altaJugador(j);
+            }
+        }
+        return result;
     }
 
     public static final String PROP_LISTA = "lista";

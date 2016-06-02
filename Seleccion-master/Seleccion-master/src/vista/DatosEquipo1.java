@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vista;
 
 import java.util.ArrayList;
@@ -10,8 +6,8 @@ import java.util.Collections;
 import modelo.Entrenador1;
 import modelo.Equipo1;
 import modelo.ListaEntrenadores1;
-import static seleccion.SeleccionDams.todosEntrenadores;
-import static seleccion.SeleccionDams.todosEquipos;
+import static seleccion.FootBall.todosEntrenadores;
+import static seleccion.FootBall.todosEquipos;
 import utilidades.DatosComunes;
 
 /**
@@ -20,12 +16,12 @@ import utilidades.DatosComunes;
  */
 public class DatosEquipo1 extends javax.swing.JDialog {
 
-    private Equipo1 equipo;
-    
-    private ArrayList<String> paises;
-    
+    private Equipo1 equipo;    
+    private ArrayList<String> paises;    
     private ListaEntrenadores1 entrenadores;
 
+    
+    
     public ListaEntrenadores1 getEntrenadores() {
         return entrenadores;
     }
@@ -60,7 +56,7 @@ public class DatosEquipo1 extends javax.swing.JDialog {
         equipo = new Equipo1();
         paises = DatosComunes.obtenerPaises();
         entrenadores = todosEntrenadores.entrenadoresLibres(todosEquipos.entrenadoresOcupados());
-        entrenadores = todosEntrenadores.copia();
+//        entrenadores = todosEntrenadores.copia();
         Entrenador1 aux = new Entrenador1();
         aux.setNombre("---Escoge un entrenador---");
         entrenadores.altaEntrenador(aux);
@@ -135,6 +131,11 @@ public class DatosEquipo1 extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("añadir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Quitar");
 
@@ -146,6 +147,11 @@ public class DatosEquipo1 extends javax.swing.JDialog {
         });
 
         jButton4.setText("Cancelar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Jugadores:");
 
@@ -196,7 +202,7 @@ public class DatosEquipo1 extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,8 +226,17 @@ public class DatosEquipo1 extends javax.swing.JDialog {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        SeleccionarJugadores1 sj = new SeleccionarJugadores1(null, true);
+        sj.setLocationRelativeTo(null);
+        sj.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
