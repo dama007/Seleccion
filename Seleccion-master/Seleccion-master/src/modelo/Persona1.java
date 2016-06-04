@@ -17,6 +17,8 @@ public class Persona1 implements Serializable, Comparable {
     private String nacionalidad;   
     private Date nacimiento;
 
+    
+    
     public Persona1() {
         
         nombre = "";
@@ -24,12 +26,11 @@ public class Persona1 implements Serializable, Comparable {
         nacimiento = new Date();
     }
 
-    
-    public Persona1(String nombre, String nacionalidad, Date nacimiento) {
-        this.nombre = nombre;
-        this.nacionalidad = nacionalidad;
-        this.nacimiento = nacimiento;
+    @Override
+    public String toString() {
+        return nombre;
     }
+
     
     public String toString(String nombre){
     return nombre;

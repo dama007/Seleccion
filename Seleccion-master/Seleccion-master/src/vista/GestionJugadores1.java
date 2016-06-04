@@ -20,16 +20,16 @@ public class GestionJugadores1 extends javax.swing.JInternalFrame {
     
         
     private ListaJugadores1 jugadores;    
-    private Jugador1 JugadorSelected;
+    private Jugador1 JugadorSeleccionado;
     
     
     
-    public Jugador1 getJugadorSelected() {
-        return JugadorSelected;
+    public Jugador1 getJugadorSeleccionado() {
+        return JugadorSeleccionado;
     }
 
-    public void setJugadorSelected(Jugador1 JugadorSelected) {
-        this.JugadorSelected = JugadorSelected;
+    public void setJugadorSelecccionado(Jugador1 JugadorSeleccionado) {
+        this.JugadorSeleccionado = JugadorSeleccionado;
     }
 
 
@@ -47,7 +47,7 @@ public class GestionJugadores1 extends javax.swing.JInternalFrame {
      */
     public GestionJugadores1() {
         jugadores = todosJugadores;
-        jugadorSelected = new Jugador1();
+        JugadorSeleccionado = new Jugador1();
         initComponents();
     }
 
@@ -59,6 +59,7 @@ public class GestionJugadores1 extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -78,6 +79,28 @@ public class GestionJugadores1 extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${jugadores.lista}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable1);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
+        columnBinding.setColumnName("Nombre");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nacionalidad}"));
+        columnBinding.setColumnName("Nacionalidad");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nacimiento}"));
+        columnBinding.setColumnName("Nacimiento");
+        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${posicion}"));
+        columnBinding.setColumnName("Posicion");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${diestro}"));
+        columnBinding.setColumnName("Diestro");
+        columnBinding.setColumnClass(Boolean.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${jugadorSeleccionado}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Modificar");
@@ -120,6 +143,8 @@ public class GestionJugadores1 extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)))
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -127,16 +152,16 @@ public class GestionJugadores1 extends javax.swing.JInternalFrame {
         if (jTable1.getSelectedRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un jugador");
         } else {
-            Jugador1 copia = (Jugador1) jugadorSelected.clone();
-            DatosJugador1 dj = new DatosJugador1(null, true, jugadorSeleccionado, "Modificar");
+            Jugador1 copia = (Jugador1) JugadorSeleccionado.clone();
+            DatosJugador1 dj = new DatosJugador1(null, true, JugadorSeleccionado, "Modificar");
             dj.setLocationRelativeTo(null);
             dj.setVisible(true);
             if (dj.cancelar) {
-                jugadorSeleccionado.setNombre(copia.getNombre());
-                jugadorSeleccionado.setNacionalidad(copia.getNacionalidad());
-                jugadorSeleccionado.setDiestro(copia.isDiestro());
-                jugadorSeleccionado.setNacimiento(copia.getNacimiento());
-                jugadorSeleccionado.setPosicion(copia.getPosicion());
+                JugadorSeleccionado.setNombre(copia.getNombre());
+                JugadorSeleccionado.setNacionalidad(copia.getNacionalidad());
+                JugadorSeleccionado.setDiestro(copia.isDiestro());
+                JugadorSeleccionado.setNacimiento(copia.getNacimiento());
+                JugadorSeleccionado.setPosicion(copia.getPosicion());
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -145,7 +170,8 @@ public class GestionJugadores1 extends javax.swing.JInternalFrame {
         if (jTable1.getSelectedRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un jugador");
         } else {
-            int respuesta = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres borrar el jugador?");
+            int respuesta = JOptionPane.showConfirmDialog(this, 
+                    "¿Estás seguro de que quieres borrar el jugador?");
             if (respuesta == JOptionPane.YES_OPTION) {
                 jugadores.bajaJugador(JugadorSeleccionado);
                 ficheroJugadores.grabar(jugadores);
@@ -160,5 +186,6 @@ public class GestionJugadores1 extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

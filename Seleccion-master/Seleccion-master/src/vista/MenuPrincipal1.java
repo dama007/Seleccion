@@ -84,7 +84,7 @@ public class MenuPrincipal1 extends javax.swing.JFrame {
         jMenu2.setText("Entrenadores");
         jMenu2.setPreferredSize(new java.awt.Dimension(100, 17));
 
-        jMenuItem2.setText("AltaEntrenador");
+        jMenuItem2.setText("Alta Entrenador");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);

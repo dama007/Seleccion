@@ -3,9 +3,12 @@ package vista;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import javax.swing.JOptionPane;
 import modelo.Entrenador1;
 import modelo.Equipo1;
+import modelo.Jugador1;
 import modelo.ListaEntrenadores1;
+import static seleccion.FootBall.ficheroEquipos;
 import static seleccion.FootBall.todosEntrenadores;
 import static seleccion.FootBall.todosEquipos;
 import utilidades.DatosComunes;
@@ -19,6 +22,19 @@ public class DatosEquipo1 extends javax.swing.JDialog {
     private Equipo1 equipo;    
     private ArrayList<String> paises;    
     private ListaEntrenadores1 entrenadores;
+    private Jugador1 jugadorSeleccionado;
+
+    
+    
+    
+    public Jugador1 getJugadorSeleccionado() {
+        return jugadorSeleccionado;
+    }
+
+    public void setJugadorSeleccionado(Jugador1 jugadorSeleccionado) {
+        this.jugadorSeleccionado = jugadorSeleccionado;
+    }
+
 
     
     
@@ -54,6 +70,7 @@ public class DatosEquipo1 extends javax.swing.JDialog {
     public DatosEquipo1(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         equipo = new Equipo1();
+        jugadorSeleccionado = new Jugador1();
         paises = DatosComunes.obtenerPaises();
         entrenadores = todosEntrenadores.entrenadoresLibres(todosEquipos.entrenadoresOcupados());
 //        entrenadores = todosEntrenadores.copia();
@@ -105,12 +122,16 @@ public class DatosEquipo1 extends javax.swing.JDialog {
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${paises}");
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jComboBox1);
         bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${equipo.entrenador}"), jComboBox1, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${entrenadores}");
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${entrenadores.lista}");
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jComboBox2);
         bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${equipo.entrenador}"), jComboBox2, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -124,10 +145,18 @@ public class DatosEquipo1 extends javax.swing.JDialog {
             }
         ));
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${equipo.jugadores}");
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${equipo.jugadores.lista}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable1);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
+        columnBinding.setColumnName("Nombre");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${posicion}"));
+        columnBinding.setColumnName("Posicion");
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${jugadorSeleccionado}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("añadir");
@@ -138,6 +167,11 @@ public class DatosEquipo1 extends javax.swing.JDialog {
         });
 
         jButton2.setText("Quitar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Aceptar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +187,7 @@ public class DatosEquipo1 extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setText("Jugadores:");
+        jLabel4.setText("Jugadores");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,17 +205,17 @@ public class DatosEquipo1 extends javax.swing.JDialog {
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(98, 98, 98)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, 0, 642, Short.MAX_VALUE)
                             .addComponent(jTextField1)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -224,6 +258,12 @@ public class DatosEquipo1 extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (comprobarCampos()) {
+            todosEquipos.altaEquipo(equipo);
+            ficheroEquipos.grabar(todosEquipos);
+            JOptionPane.showMessageDialog(this, "Equipo dado de alta");
+            dispose();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -231,11 +271,42 @@ public class DatosEquipo1 extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SeleccionarJugadores1 sj = new SeleccionarJugadores1(null, true);
+        SeleccionarJugadores1 sj = new SeleccionarJugadores1(null, true, equipo.getJugadores());
         sj.setLocationRelativeTo(null);
         sj.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (jTable1.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar un jugador");
+        } else {
+            equipo.getJugadores().bajaJugador(jugadorSeleccionado);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private boolean comprobarCampos() {
+        if (jTextField1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debes indicar un nombe");
+            return false;
+        }
+        if (todosEquipos.existeEquipo(equipo)) {
+            JOptionPane.showMessageDialog(this, "Ya existe un equipo con este nombre");
+            return false;
+        }
+        if (jComboBox1.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Debes escoger un país");
+            return false;
+        }
+        if (jComboBox2.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Debes escoger un entrenador");
+            return false;
+        }
+        if (equipo.getJugadores().getLista().size() == 0) {
+            JOptionPane.showMessageDialog(this, "Debe tener al menos un jugador");
+            return false;
+        }
+        return true;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

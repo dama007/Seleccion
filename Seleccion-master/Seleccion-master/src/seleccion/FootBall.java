@@ -29,7 +29,7 @@ public class FootBall {
         }
         ficheroEntrenadores = new Fichero("entrenadores.xml");
         todosEntrenadores = (ListaEntrenadores1) ficheroEntrenadores.leer();
-        if (todosJugadores == null) {
+        if (todosEntrenadores == null) {
             todosEntrenadores = new ListaEntrenadores1();
         }
         

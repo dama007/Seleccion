@@ -25,6 +25,8 @@ public class GestionPersonal1 extends javax.swing.JInternalFrame {
     private ListaPersonas1 todos;    
     private Persona1 personaSeleccionada;
 
+    
+    
     public Persona1 getPersonaSeleccionada() {
         return personaSeleccionada;
     }
@@ -76,7 +78,7 @@ public class GestionPersonal1 extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
 
         setClosable(true);
-        setTitle("Gestión del personal");
+        setTitle("Gestión del Personal");
 
         jButton1.setText("Modificar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

@@ -43,15 +43,6 @@ public class ListaJugadores1 implements Serializable {
         return filtrados;
     }
     
-    public ListaJugadores1 jugadoresLibres(ListaJugadores1 ocupados) {
-        ListaJugadores1 libres = new ListaJugadores1();
-        for (Jugador1 j : lista) {
-            if (!ocupados.existeJugador(j)) {
-            libres.altaJugador(j);
-        }
-        }
-        return libres;
-    }
     
     public ListaJugadores1 copia() {
         ListaJugadores1 copia = new ListaJugadores1();
@@ -61,7 +52,19 @@ public class ListaJugadores1 implements Serializable {
         return copia;
     }
     
-    public ListaJugadores1 judadoresPorNacionalidad(String nacionalidad) {
+    public ListaJugadores1 jugadoresLibres(ListaJugadores1 ocupados) {
+        ListaJugadores1 libres = new ListaJugadores1();
+        for (Jugador1 j : lista) {
+            if (!ocupados.existeJugador(j)) {
+            libres.altaJugador(j);
+            }
+        }
+        return libres;
+    }
+    
+    
+    
+    public ListaJugadores1 jugadoresPorNacionalidad(String nacionalidad) {
         ListaJugadores1 result = new ListaJugadores1();
         for (Jugador1 j : lista) {
             if (j.getNacionalidad().equals(nacionalidad)) {

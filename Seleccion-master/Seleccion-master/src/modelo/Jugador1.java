@@ -3,13 +3,15 @@ package modelo;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import modelo.Persona1;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author usu21
  */
-public class Jugador1 extends Persona1 {
+public class Jugador1 extends Persona1 implements Cloneable, Serializable {
 //    Si su padre es Serializable, él también lo es.
     
     private String posicion;    
@@ -18,6 +20,15 @@ public class Jugador1 extends Persona1 {
     public Jugador1() {
         super();
         posicion = "";
+    }
+    
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Jugador1.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
     
     

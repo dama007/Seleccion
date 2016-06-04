@@ -5,7 +5,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.ArrayList;
-import modelo.ListaJugadores1;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 
@@ -24,9 +23,10 @@ public class ListaEquipos1 implements Serializable {
     }
     
     
-    public void altaEquipos(Equipo1 e) {
+    public void altaEquipo(Equipo1 e) {
         lista.add(e);
     }
+    
     
     public boolean existeEquipo(Equipo1 e) {
         return lista.contains(e);
