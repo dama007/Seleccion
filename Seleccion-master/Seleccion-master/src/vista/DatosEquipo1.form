@@ -186,6 +186,9 @@
             <BindingProperty name="selectedElement" source="Form" sourcePath="${jugadorSeleccionado}" target="jTable1" targetPath="selectedElement" updateStrategy="0" immediately="false">
               <BindingParameter name="IGNORE_ADJUSTING" value="N"/>
             </BindingProperty>
+            <BindingProperty name="selectedElements" source="Form" sourcePath="${jugadoresSeleccionados}" target="jTable1" targetPath="selectedElements" updateStrategy="0" immediately="false">
+              <BindingParameter name="IGNORE_ADJUSTING" value="N"/>
+            </BindingProperty>
           </BindingProperties>
         </Component>
       </SubComponents>

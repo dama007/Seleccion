@@ -22,7 +22,19 @@ public class DatosEquipo1 extends javax.swing.JDialog {
     private Equipo1 equipo;    
     private ArrayList<String> paises;    
     private ListaEntrenadores1 entrenadores;
-    private Jugador1 jugadorSeleccionado;
+    private Jugador1 jugadorSeleccionado;    
+    private ArrayList<Jugador1> jugadoresSeleccionados;
+
+    
+    
+    public ArrayList<Jugador1> getJugadoresSeleccionados() {
+        return jugadoresSeleccionados;
+    }
+
+    public void setJugadoresSeleccionados(ArrayList<Jugador1> jugadoresSeleccionados) {
+        this.jugadoresSeleccionados = jugadoresSeleccionados;
+    }
+
 
     
     
@@ -71,6 +83,7 @@ public class DatosEquipo1 extends javax.swing.JDialog {
         super(parent, modal);
         equipo = new Equipo1();
         jugadorSeleccionado = new Jugador1();
+        jugadoresSeleccionados = new ArrayList<>();
         paises = DatosComunes.obtenerPaises();
         entrenadores = todosEntrenadores.entrenadoresLibres(todosEquipos.entrenadoresOcupados());
 //        entrenadores = todosEntrenadores.copia();
@@ -155,6 +168,8 @@ public class DatosEquipo1 extends javax.swing.JDialog {
         columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${jugadorSeleccionado}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${jugadoresSeleccionados}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElements"));
         bindingGroup.addBinding(binding);
 
         jScrollPane1.setViewportView(jTable1);
@@ -279,8 +294,12 @@ public class DatosEquipo1 extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jTable1.getSelectedRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un jugador");
-        } else {
+        } else if (jTable1.getSelectedRowCount() == 1) {
             equipo.getJugadores().bajaJugador(jugadorSeleccionado);
+        } else {
+            for (Jugador1 j : jugadoresSeleccionados) {
+                equipo.getJugadores().bajaJugador(j);
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
