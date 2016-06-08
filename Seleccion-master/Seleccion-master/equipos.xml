@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_60" class="java.beans.XMLDecoder">
+ <object class="modelo.ListaEquipos1" id="ListaEquipos10">
+  <void property="lista">
+   <void method="add">
+    <object class="modelo.Equipo1" id="Equipo10">
+     <void property="entrenador">
+      <void property="exp">
+       <int>15</int>
+      </void>
+      <void property="nacimiento">
+       <object class="java.util.Date">
+        <long>1465367489413</long>
+       </object>
+      </void>
+      <void property="nacionalidad">
+       <string>Francia</string>
+      </void>
+      <void property="nombre">
+       <string>René Caillé</string>
+      </void>
+      <void property="numLicencia">
+       <string>X69854217</string>
+      </void>
+     </void>
+     <void id="ListaJugadores10" property="jugadores">
+      <void property="lista">
+       <void method="add">
+        <object class="modelo.Jugador1">
+         <void property="diestro">
+          <boolean>true</boolean>
+         </void>
+         <void property="nacimiento">
+          <object class="java.util.Date">
+           <long>362268000000</long>
+          </object>
+         </void>
+         <void property="nacionalidad">
+          <string>Ucrania</string>
+         </void>
+         <void property="nombre">
+          <string>Andreas schevshenko</string>
+         </void>
+         <void property="posicion">
+          <string>Delantero</string>
+         </void>
+        </object>
+       </void>
+      </void>
+     </void>
+     <void property="nombre">
+      <string>Monaco</string>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>

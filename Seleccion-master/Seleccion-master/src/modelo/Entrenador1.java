@@ -48,10 +48,12 @@ public class Entrenador1 extends Persona1 {
     private transient final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
+        super.addPropertyChangeListener(listener);
         propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
+        super.addPropertyChangeListener(listener);
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
 

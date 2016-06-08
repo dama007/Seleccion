@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_60" class="java.beans.XMLDecoder">
+ <object class="modelo.ListaEntrenadores1" id="ListaEntrenadores10">
+  <void property="lista">
+   <void method="add">
+    <object class="modelo.Entrenador1">
+     <void property="exp">
+      <int>1</int>
+     </void>
+     <void property="nacimiento">
+      <object class="java.util.Date">
+       <long>1465303391389</long>
+      </object>
+     </void>
+     <void property="nacionalidad">
+      <string>Holanda</string>
+     </void>
+     <void property="nombre">
+      <string>Zinedine Zidane</string>
+     </void>
+     <void property="numLicencia">
+      <string>t54983215</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="modelo.Entrenador1">
+     <void property="exp">
+      <int>8</int>
+     </void>
+     <void property="nacimiento">
+      <object class="java.util.Date">
+       <long>1465303537504</long>
+      </object>
+     </void>
+     <void property="nacionalidad">
+      <string>Alemania</string>
+     </void>
+     <void property="nombre">
+      <string>Joseph Guardiola</string>
+     </void>
+     <void property="numLicencia">
+      <string>P89576234</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="modelo.Entrenador1">
+     <void property="exp">
+      <int>15</int>
+     </void>
+     <void property="nacimiento">
+      <object class="java.util.Date">
+       <long>1465367489413</long>
+      </object>
+     </void>
+     <void property="nacionalidad">
+      <string>Francia</string>
+     </void>
+     <void property="nombre">
+      <string>René Caillé</string>
+     </void>
+     <void property="numLicencia">
+      <string>X69854217</string>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>
